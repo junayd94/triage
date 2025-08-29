@@ -1,0 +1,66 @@
+<div class="container">
+
+  <!-- Top-right readings box -->
+  <div class="readings-box" *ngIf="bpReading || spo2Reading || painScore">
+    <div *ngIf="bpReading"><strong>BP:</strong> {{ bpReading }}</div>
+    <div *ngIf="spo2Reading"><strong>SpO₂:</strong> {{ spo2Reading }}</div>
+    <div *ngIf="painScore"><strong>Pain:</strong> {{ painScore }}</div>
+  </div>
+
+  <!-- Finished Results Panel -->
+  <div *ngIf="finished" class="results-panel">
+    <h2>Results</h2>
+    <p><strong>Selected Issues:</strong> {{ getSelectedIssues() }}</p>
+    <p><strong>BP:</strong> {{ bpReading }}</p>
+    <p><strong>SpO₂:</strong> {{ spo2Reading }}</p>
+    <p><strong>Pain Score:</strong> {{ painScore }}</p>
+    <!-- <h3>{{ getResultMessage() }}</h3> -->
+    <h3 [ngClass]="{
+    'red-box': (+bpReading.split('/')[0] > 140 || +spo2Reading.replace('%','') < 94),
+    'yellow-box': (!(+bpReading.split('/')[0] > 140 || +spo2Reading.replace('%','') < 94) && +painScore >= 7),
+    'green-box': (!(+bpReading.split('/')[0] > 140 || +spo2Reading.replace('%','') < 94) && !(+painScore >= 7))
+  }">
+      {{
+      (+bpReading.split('/')[0] > 140 || +spo2Reading.replace('%','') < 94) ? 'Please go to Red Box' : (+painScore>=
+        7)
+        ? 'Please go to Yellow Box'
+        : 'Please go to Green Box'
+        }}
+    </h3>
+      <button class="start-over-btn" (click)="startOver()">Start Over</button>
+  </div>
+
+  <!-- Questionnaire -->
+  <div class="question-card" *ngIf="!finished">
+    <h2>{{ questions[currentQuestionIndex].text }}</h2>
+
+    <!-- Multiple / Single Choice -->
+    <div *ngIf="questions[currentQuestionIndex].options" class="options-grid">
+      <button *ngFor="let option of questions[currentQuestionIndex].options" (click)="selectOption(option)"
+        [class.selected]="questions[currentQuestionIndex].selected.includes(option)">
+        {{ option }}
+      </button>
+    </div>
+
+    <!-- BP & SpO₂ Measurement -->
+    <div *ngIf="questions[currentQuestionIndex].type === 'bp' || questions[currentQuestionIndex].type === 'spo2'">
+      <button *ngIf="!loading && !(questions[currentQuestionIndex].type === 'bp' ? bpReading : spo2Reading)"
+        class="start-btn" (click)="startMeasurement()">Start</button>
+      <div *ngIf="loading" class="loader"></div>
+      <div *ngIf="questions[currentQuestionIndex].type === 'bp' && bpReading" class="reading">{{ bpReading }}</div>
+      <div *ngIf="questions[currentQuestionIndex].type === 'spo2' && spo2Reading" class="reading">{{ spo2Reading }}
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <button (click)="prevQuestion()" [disabled]="currentQuestionIndex === 0">Previous</button>
+      <button (click)="nextQuestion()" [disabled]="isNextDisabled()">Next</button>
+    </div>
+
+    <!-- Progress Dots -->
+    <div class="progress-dots">
+      <span *ngFor="let q of questions; let i = index" [class.active]="i === currentQuestionIndex"></span>
+    </div>
+  </div>
+</div>
