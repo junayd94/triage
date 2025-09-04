@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 800">
+<defs>
+<linearGradient id="skinB" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#f0d3bd"/>
+<stop offset="100%" stop-color="#e5bea5"/>
+</linearGradient>
+<style>
+.silhouette { fill: url(#skinB); stroke: #c0ae9f; stroke-width: 1; }
+</style>
+</defs>
+
+
+<!-- Very simple back silhouette (mirrored proportions) -->
+<!-- Head -->
+<ellipse class="silhouette" cx="150" cy="60" rx="30" ry="40"/>
+<!-- Neck -->
+<rect class="silhouette" x="135" y="100" width="30" height="18" rx="6"/>
+<!-- Torso/back -->
+<rect class="silhouette" x="105" y="118" width="90" height="200" rx="28"/>
+<!-- Pelvis -->
+<rect class="silhouette" x="120" y="318" width="60" height="60" rx="18"/>
+<!-- Left arm (back) -->
+<rect class="silhouette" x="82" y="140" width="24" height="140" rx="12"/>
+<rect class="silhouette" x="70" y="280" width="24" height="90" rx="12"/>
+<!-- Right arm (back) -->
+<rect class="silhouette" x="194" y="140" width="24" height="140" rx="12"/>
+<rect class="silhouette" x="206" y="280" width="24" height="90" rx="12"/>
+<!-- Hands -->
+<ellipse class="silhouette" cx="82" cy="430" rx="15" ry="18"/>
+<ellipse class="silhouette" cx="218" cy="430" rx="15" ry="18"/>
+<!-- Legs -->
+<rect class="silhouette" x="120" y="378" width="26" height="320" rx="14"/>
+<rect class="silhouette" x="154" y="378" width="26" height="320" rx="14"/>
+<!-- Feet -->
+<ellipse class="silhouette" cx="133" cy="760" rx="22" ry="12"/>
+<ellipse class="silhouette" cx="167" cy="760" rx="22" ry="12"/>
+</svg>

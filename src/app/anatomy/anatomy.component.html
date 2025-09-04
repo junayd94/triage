@@ -1,0 +1,59 @@
+<div class="background"></div>
+<div class="anatomy-shell">
+  <!-- Page header -->
+  <header class="page-header" role="banner" aria-label="Screen title">
+    <h1>PRIMARY TRIAGE ASSESSMENT</h1>
+  </header>
+
+  <div class="svg-wrap">
+    <svg
+      class="anatomy-svg"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 300 800"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      style="border: 4px solid lightgray; border-radius: 16px;"
+      aria-label="Human anatomy front view with clickable points">
+
+      <!-- Render your external SVG -->
+      <image
+        id="human-figure"
+        href="assets/human.svg"
+        x="0" y="0"
+        width="300" height="800"
+        preserveAspectRatio="xMidYMid meet" />
+
+      <!-- Hotspots + outside labels -->
+      <g *ngFor="let m of currentMarks" class="hotspot"
+         tabindex="0" role="button"
+         (click)="go(m)" (keydown.enter)="go(m)"
+         [attr.aria-label]="m.label">
+
+        <!-- click target -->
+        <circle class="hot-dot" [attr.cx]="m.x" [attr.cy]="m.y" r="7">
+          <title>{{ m.label }}</title>
+        </circle>
+
+        <!-- leader line to outside label -->
+        <line class="leader"
+              [attr.x1]="m.x" [attr.y1]="m.y"
+              [attr.x2]="m.x + (m.labelSide === 'right' ? labelOffset : -labelOffset)"
+              [attr.y2]="m.y" />
+
+        <!-- outside label -->
+        <text class="label"
+              [attr.x]="m.x + (m.labelSide === 'right' ? labelOffset + 6 : -labelOffset - 6)"
+              [attr.y]="m.y + 4"
+              [attr.text-anchor]="m.labelSide === 'right' ? 'start' : 'end'">
+          {{ m.label }}
+        </text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Footer navigation (centered) -->
+  <footer class="navigation center" role="contentinfo" aria-label="Anatomy navigation">
+    <!-- <button type="button" (click)="onPrev()" [disabled]="disablePrev">Previous</button> -->
+    <button type="button" (click)="onNext()" [disabled]="disableNext">Next</button>
+  </footer>
+</div>

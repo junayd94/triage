@@ -12,6 +12,7 @@ export class WelcomeComponent {
 
   startApp() {
     console.log('Tapped — starting app...');
-    this.router.navigate(['/home']);
+    // this.router.navigate(['/home']);
+    this.router.navigate(['/anatomy']);
   }
 }
